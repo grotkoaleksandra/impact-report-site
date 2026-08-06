@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Northlight Studio — Annual Impact Report 2025</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f3ee;
+    --ink: #282828;
+    --accent: #ff5c2b;
+    --blue: #17488b;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 20px;
+    line-height: 1.5;
+    letter-spacing: -0.2px;
+    font-weight: 400;
+  }
+
+  h1 {
+    font-size: clamp(48px, 8vw, 100px);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-weight: 400;
+  }
+
+  h2 {
+    font-size: clamp(36px, 5vw, 60px);
+    line-height: 1.15;
+    letter-spacing: -0.033em;
+    font-weight: 400;
+  }
+
+  h3 {
+    font-size: clamp(28px, 3.5vw, 40px);
+    line-height: 1.25;
+    letter-spacing: -0.037em;
+    font-weight: 400;
+  }
+
+  h4 {
+    font-size: clamp(22px, 2.5vw, 30px);
+    line-height: 1.33;
+    letter-spacing: -0.033em;
+    font-weight: 400;
+  }
+
+  p { max-width: 62ch; }
+
+  a { color: inherit; }
+
+  /* ---------- top bar ---------- */
+  .topbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 32px;
+    font-size: 15px;
+    letter-spacing: 0;
+    z-index: 100;
+    mix-blend-mode: difference;
+    color: #fff;
+  }
+
+  .topbar .wordmark { font-weight: 500; }
+
+  /* ---------- progress bar ---------- */
+  .progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    width: 0%;
+    background: var(--accent);
+    z-index: 200;
+  }
+
+  /* ---------- section index (side nav) ---------- */
+  .index {
+    position: fixed;
+    right: 32px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 13px;
+    letter-spacing: 0;
+  }
+
+  .index a {
+    text-decoration: none;
+    opacity: 0.35;
+    transition: opacity 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--ink);
+  }
+
+  .index a::before {
+    content: "";
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+    flex-shrink: 0;
+  }
+
+  .index a:hover, .index a.active { opacity: 1; }
+
+  section.dark ~ nav .index a { color: #fff; }
+
+  @media (max-width: 900px) { .index { display: none; } }
+
+  /* ---------- sections ---------- */
+  section {
+    min-height: 100vh;
+    padding: 140px 8vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  section.blue { background: var(--blue); color: var(--bg); }
+  section.orange { background: var(--accent); color: var(--ink); }
+  section.white { background: var(--white); }
+
+  .kicker {
+    font-size: 14px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .kicker::before {
+    content: "";
+    width: 32px;
+    height: 2px;
+    background: var(--accent);
+  }
+
+  section.orange .kicker::before { background: var(--ink); }
+  section.blue .kicker::before { background: var(--accent); }
+
+  .cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+    margin-top: 48px;
+  }
+
+  @media (max-width: 900px) { .cols { grid-template-columns: 1fr; } }
+
+  /* ---------- hero ---------- */
+  .hero { justify-content: flex-end; padding-bottom: 12vh; }
+
+  .hero h1 { max-width: 12ch; }
+
+  .hero .year {
+    font-size: clamp(80px, 16vw, 220px);
+    line-height: 0.9;
+    letter-spacing: -0.05em;
+    color: var(--accent);
+    margin-bottom: 24px;
+  }
+
+  .hero .scroll-hint {
+    margin-top: 64px;
+    font-size: 14px;
+    opacity: 0.6;
+    animation: bob 2.4s ease-in-out infinite;
+    width: fit-content;
+  }
+
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  /* ---------- stats ---------- */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 48px;
+    margin-top: 64px;
+  }
+
+  .stat .num {
+    font-size: clamp(56px, 7vw, 110px);
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+
+  .stat .label {
+    margin-top: 12px;
+    font-size: 16px;
+    opacity: 0.7;
+    max-width: 24ch;
+  }
+
+  section.blue .stat .num { color: var(--accent); }
+  section:not(.blue):not(.orange) .stat .num { color: var(--blue); }
+
+  /* ---------- big statement ---------- */
+  .statement {
+    font-size: clamp(32px, 4.5vw, 56px);
+    line-height: 1.2;
+    letter-spacing: -0.035em;
+    max-width: 22ch;
+  }
+
+  .statement em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  section.orange .statement em { color: var(--bg); }
+
+  /* ---------- cards ---------- */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 56px;
+  }
+
+  .card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 36px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  section.blue .card { background: rgba(255,255,255,0.08); }
+  section.white .card { background: var(--bg); }
+
+  .card .badge {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: grid;
+    place-items: center;
+    color: var(--bg);
+    font-size: 18px;
+  }
+
+  .card p { font-size: 17px; opacity: 0.8; }
+
+  /* ---------- quote ---------- */
+  blockquote {
+    font-size: clamp(26px, 3.2vw, 40px);
+    line-height: 1.3;
+    letter-spacing: -0.03em;
+    max-width: 28ch;
+  }
+
+  blockquote footer {
+    margin-top: 32px;
+    font-size: 16px;
+    letter-spacing: 0;
+    opacity: 0.6;
+  }
+
+  /* ---------- footer ---------- */
+  .site-footer {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 100px 8vw 60px;
+  }
+
+  .site-footer h2 { max-width: 16ch; }
+
+  .site-footer .cta {
+    display: inline-block;
+    margin-top: 40px;
+    padding: 18px 36px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 18px;
+    transition: transform 0.25s;
+  }
+
+  .site-footer .cta:hover { transform: scale(1.05); }
+
+  .site-footer .fine {
+    margin-top: 80px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    opacity: 0.5;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* ---------- reveal animation ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .reveal.d1 { transition-delay: 0.1s; }
+  .reveal.d2 { transition-delay: 0.2s; }
+  .reveal.d3 { transition-delay: 0.3s; }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<header class="topbar">
+  <span class="wordmark">Northlight®</span>
+  <span>Impact Report 2025</span>
+</header>
+
+<nav>
+  <div class="index" id="index">
+    <a href="#intro">Introduction</a>
+    <a href="#numbers">By the numbers</a>
+    <a href="#people">People</a>
+    <a href="#planet">Planet</a>
+    <a href="#community">Community</a>
+    <a href="#lessons">Lessons</a>
+    <a href="#ahead">The year ahead</a>
+  </div>
+</nav>
+
+<section class="hero" id="top">
+  <div class="year reveal">2025</div>
+  <h1 class="reveal d1">A year of doing fewer things, better.</h1>
+  <p class="reveal d2" style="margin-top:32px; opacity:0.7;">The annual impact report of Northlight Studio — what we made, what we learned, and where we fell short.</p>
+  <div class="scroll-hint">↓ Scroll to explore</div>
+</section>
+
+<section id="intro">
+  <div class="kicker reveal">Introduction</div>
+  <h2 class="reveal d1">Progress worth reporting isn't always the kind that fits on a chart.</h2>
+  <div class="cols">
+    <p class="reveal d2">This year we chose depth over breadth. We took on fewer projects, said no more often, and gave every engagement the room it deserved. It changed the work — and it changed us.</p>
+    <p class="reveal d3">In these pages you'll find honest numbers, the people behind them, and the setbacks we'd rather not admit to but will anyway. Thank you for reading, and for holding us to it.</p>
+  </div>
+</section>
+
+<section class="blue" id="numbers">
+  <div class="kicker reveal">By the numbers</div>
+  <h2 class="reveal d1">Twelve months, measured.</h2>
+  <div class="stats">
+    <div class="stat reveal d1"><div class="num">18</div><div class="label">projects shipped with purpose-led teams</div></div>
+    <div class="stat reveal d2"><div class="num">92%</div><div class="label">client partners who returned or referred us</div></div>
+    <div class="stat reveal d3"><div class="num">4</div><div class="label">day working week, kept all year</div></div>
+    <div class="stat reveal d3"><div class="num">-31%</div><div class="label">operational emissions vs. last year</div></div>
+  </div>
+</section>
+
+<section id="people">
+  <div class="kicker reveal">People</div>
+  <p class="statement reveal d1">A studio is only ever as healthy as the <em>people</em> inside it.</p>
+  <div class="cards">
+    <div class="card reveal d1">
+      <div class="badge">01</div>
+      <h4>Grew the team to nine</h4>
+      <p>Two new designers and a producer joined us this year — hired for curiosity first, portfolios second.</p>
+    </div>
+    <div class="card reveal d2">
+      <div class="badge">02</div>
+      <h4>Learning budget, doubled</h4>
+      <p>Every team member now has an annual allowance for courses, conferences, and books — no approval needed.</p>
+    </div>
+    <div class="card reveal d3">
+      <div class="badge">03</div>
+      <h4>Four-day week, year two</h4>
+      <p>Output held steady. Sick days halved. Nobody wants to go back, least of all us.</p>
+    </div>
+  </div>
+</section>
+
+<section class="orange" id="planet">
+  <div class="kicker reveal">Planet</div>
+  <h2 class="reveal d1">Designing like the planet is a client.</h2>
+  <div class="cols">
+    <div class="reveal d2">
+      <h4>What we did</h4>
+      <p style="margin-top:16px;">We audited every service we run, moved hosting to renewable-powered infrastructure, and made low-carbon design defaults part of every project kickoff — not an optional extra.</p>
+    </div>
+    <div class="reveal d3">
+      <h4>What's next</h4>
+      <p style="margin-top:16px;">Full supply-chain footprinting in 2026, and a public methodology so other small studios can copy our homework. Please, copy our homework.</p>
+    </div>
+  </div>
+</section>
+
+<section class="white" id="community">
+  <div class="kicker reveal">Community</div>
+  <blockquote class="reveal d1">
+    "We keep choosing this studio because they treat our mission like it's their own."
+    <footer>— A partner organisation, 2025</footer>
+  </blockquote>
+  <div class="cols">
+    <p class="reveal d2">We gave 240 hours of pro-bono design time to local non-profits this year, mentored twelve early-career designers, and opened our studio library to anyone who knocks.</p>
+    <p class="reveal d3">Community isn't a line item. It's the reason a small studio gets to do outsized work.</p>
+  </div>
+</section>
+
+<section class="blue" id="lessons">
+  <div class="kicker reveal">Lessons</div>
+  <h2 class="reveal d1">The part where we're honest.</h2>
+  <div class="cols">
+    <div class="reveal d2">
+      <h4>We overcommitted in spring</h4>
+      <p style="margin-top:16px;">Two projects ran hot at the same time and the team felt it. We've since built a capacity buffer into how we schedule — no more back-to-back peaks.</p>
+    </div>
+    <div class="reveal d3">
+      <h4>Our reporting lagged</h4>
+      <p style="margin-top:16px;">We tracked our impact in spreadsheets that only one person understood. This report exists partly to force us to fix that. It's fixed.</p>
+    </div>
+  </div>
+</section>
+
+<section id="ahead">
+  <div class="kicker reveal">The year ahead</div>
+  <p class="statement reveal d1">In 2026 we go further: <em>open-sourcing</em> our process, our pricing, and our footprint.</p>
+  <p class="reveal d2" style="margin-top:40px; opacity:0.75;">If radical transparency turns out to be a mistake, at least it'll be a well-documented one.</p>
+</section>
+
+<footer class="site-footer">
+  <h2 class="reveal">Want to build something that matters?</h2>
+  <a class="cta reveal d1" href="mailto:hello@example.com">Say hello →</a>
+  <div class="fine">
+    <span>© 2025 Northlight Studio — a fictional template. Replace with your own name and content.</span>
+    <span><a href="#top">Back to top ↑</a></span>
+  </div>
+</footer>
+
+<script>
+  // Scroll progress bar
+  const progress = document.getElementById('progress');
+  addEventListener('scroll', () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    progress.style.width = (scrollY / max * 100) + '%';
+  }, { passive: true });
+
+  // Reveal on scroll
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Active section in the index
+  const links = [...document.querySelectorAll('.index a')];
+  const secIO = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+      }
+    });
+  }, { threshold: 0.4 });
+  document.querySelectorAll('section[id], footer[id]').forEach(s => secIO.observe(s));
+</script>
+
+</body>
+</html>
